@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
@@ -11,20 +10,20 @@ const styles = {
   percent: "text-green-400",
 };
 
-type Coin = {
-  symbol: string;
-  change: number;
-};
+// type Coin = {
+//   symbol: string;
+//   change: number;
+// };
 
-interface HeaderProps {
-  coin: Coin;
-  price: number;
-}
+// interface HeaderProps {
+//   coin: Coin;
+//   price: number;
+// }
 
-const Asset: FC<HeaderProps> = ({ coin, price }) => {
+const Asset = ({ coin, price }) => {
   
   const randomNumber = () => {
-    let data: number[] = [];
+    let data = [];
     for (let i = 0; i < 9; i++) {
       let randomNum = Math.floor(Math.random() * 100);
       data = [...data, randomNum];
@@ -40,6 +39,40 @@ const Asset: FC<HeaderProps> = ({ coin, price }) => {
     }
   };
 
+  const data = {
+    labels: ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+    datasets: [
+      {
+        fill: false,
+        lineTension: 0.01,
+        backgroundColor: setGraphColor(),
+        borderColor: setGraphColor(),
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: setGraphColor(),
+        pointBackgroundColor: setGraphColor(),
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: setGraphColor(),
+        pointHoverBorderColor: setGraphColor(),
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: randomNumber(),
+      },
+    ],
+  };
+
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -47,7 +80,7 @@ const Asset: FC<HeaderProps> = ({ coin, price }) => {
       </div>
       <div>
         <div className={styles.chart}>
-          {/* <Line data={data} options={options} width={400} height={150} /> */}
+          <Line data={data} options={options} width={400} height={150} />
         </div>
       </div>
       <div className={styles.price}>

@@ -40,6 +40,21 @@ const styles = {
 
 const tokens = ["ETH", "DOGE", "USDC", "DAI"];
 
+const bigChartLabels = [
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Noz",
+  "Dec",
+  "Jan",
+];
+
+const bigChartData = [40, 45, 40, 50, 70, 72, 50, 50, 55, 70];
+
 const Home: NextPage = () => {
   return (
     <div className={styles.wrapper}>
@@ -55,7 +70,7 @@ const Home: NextPage = () => {
           </div>
           <div>
             <div className={styles.chartContainer}>
-              {/* <PortfolioChart /> */}
+              <PortfolioChart labels = {bigChartLabels} dataArray={bigChartData} />
             </div>
           </div>
           <div className={styles.buyingPowerContainer}>
@@ -78,7 +93,13 @@ const Home: NextPage = () => {
             <div className={styles.ItemTitle}>Crypto Currencies</div>
             <BiDotsHorizontalRounded className={styles.moreOptions} />
           </div>
-          {tokens.map((token) => <Asset key={token} coin={{symbol:token, change:30}} price={30} />)}
+          {tokens.map((token) => (
+            <Asset
+              key={token}
+              coin={{ symbol: token, change: 30 }}
+              price={30}
+            />
+          ))}
 
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Lists</div>

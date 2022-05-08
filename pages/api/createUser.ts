@@ -11,11 +11,11 @@ const createUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const userDoc = {
         _type: "users",
         _id: req.body.walletAddress,
-        _userName: 'Unnamed',
+        userName: 'Unnamed',
         address: req.body.walletAddress,
     }
 
-    await client.createIfNoExists(userDoc);
+    await client.createIfNotExists(userDoc);
 
     res.status(200).json({ message: 'success' })
 

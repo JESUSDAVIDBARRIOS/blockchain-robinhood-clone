@@ -41,14 +41,14 @@ export const RobinhoodProvider = ({ children }) => {
     authenticate();
   };
 
-  const singOut = () => {
+  const signOut = () => {
     logout();
   };
 
   return (
     <RobinhoodContext.Provider value={{
         connectWallet,
-        singOut,
+        signOut,
         currentAccount,
         isAuthenticated,
         formattedAccount

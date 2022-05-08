@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Image from "next/image";
-import logo from '../assets/logoRobin.png'
+import logo from "../assets/logoRobin.png";
 import { AiOutlineSearch } from "react-icons/ai";
+import { RobinhoodContext } from "../context/RobinhoodContext";
 
 const styles = {
   container: "flex w-screen h-16 bg-black px-24 py-3 mb-5 fixed",
@@ -17,14 +18,25 @@ const styles = {
   menuItem: "cursor-pointer font-bold hover:text-green-500 duration-300",
 };
 
-let isAuthenticated = true;
-const formattedAccount = '0xa96...c8D';
-
 const Header: FC = () => {
+  const {
+    connectWallet,
+    signOut,
+    currentAccount,
+    isAuthenticated,
+    formattedAccount,
+  } = useContext(RobinhoodContext);
+
   return (
     <div className={styles.container}>
       <div className={styles.leftHeader}>
-        <Image src={logo} height={100} width={100} className = {styles.logo} alt={'Logo'} />
+        <Image
+          src={logo}
+          height={100}
+          width={100}
+          className={styles.logo}
+          alt={"Logo"}
+        />
       </div>
       <div className={styles.searchWrapper}>
         <div className={styles.searchInputContainer}>
@@ -41,14 +53,18 @@ const Header: FC = () => {
         <div className={styles.menuItem}>Messages</div>
 
         {isAuthenticated && (
-            <>
-                <div className={styles.menuItem}>{formattedAccount}</div>
-                <div className={styles.menuItem} onClick={() => signOut()}>Logout</div>
-            </>
+          <>
+            <div className={styles.menuItem}>{formattedAccount}</div>
+            <div className={styles.menuItem} onClick={() => signOut()}>
+              Logout
+            </div>
+          </>
         )}
 
         {!isAuthenticated && (
-           <div className={styles.menuItem} onClick={() => connectWallet()}>Login</div> 
+          <div className={styles.menuItem} onClick={() => connectWallet()}>
+            Login
+          </div>
         )}
       </div>
     </div>

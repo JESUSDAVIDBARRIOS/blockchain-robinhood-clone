@@ -2,7 +2,7 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 const styles = {
-  wrapper: "flex justify-between p-5  hover:bg-[#30363B] duration-300",
+  wrapper: "flex justify-between p-4  hover:bg-[#30363B] duration-300",
   container: "flex flex-col text-white items-center justify-center",
   name: "font-bold",
   chart: "w-36 h-full",
@@ -80,7 +80,7 @@ const Asset = ({ coin, price }) => {
       </div>
       <div>
         <div className={styles.chart}>
-          <Line data={data} options={options} width={400} height={150} />
+          <Line data={data} options={options} width={350} height={150} />
         </div>
       </div>
       <div className={styles.price}>

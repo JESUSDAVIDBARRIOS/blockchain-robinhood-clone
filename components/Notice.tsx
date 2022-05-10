@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 const styles = {
-    notice: 'flex border border-[#30363b] mx-11 my-4 p-5 flex-col flex-1 rounded',
+    notice: 'flex border border-[#30363b] my-4 p-5 flex-col flex-1 rounded',
     noticeContainer: 'flex-1',
     noticeTitle: 'text-gray-500',
     noticeMessage: 'text-white font-bold',

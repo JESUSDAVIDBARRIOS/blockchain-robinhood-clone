@@ -2,7 +2,7 @@ const { ethers } = require('hardhat');
 
 const main = async () =>{
 
-    const dogeFactory = await ethers.getContractFactory('DogeCoin');
+    const dogeFactory = await ethers.getContractFactory('Dogecoin');
     const dogeContract = await dogeFactory.deploy();
     await dogeContract.deployed();
     console.log('Dogecoin deployed to:', dogeContract.address);

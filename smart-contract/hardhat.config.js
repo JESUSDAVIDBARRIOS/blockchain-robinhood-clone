@@ -1,13 +1,16 @@
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config({path: '.env'});
+// require('private.json');
+// require(WALLET_PRIVATE_KEY);
+// import { ALCHEMY_API_URL, WALLET_PRIVATE_KEY } from './private';
 
 module.exports = {
   solidity: "0.8.4",
   networks: {
     rinkeby: {
-      url: ALCHEMY_API_URL,
+      url: process.env.ALCHEMY_API_URL,
       accounts: [
-        WALLET_PRIVATE_KEY
+        process.env.WALLET_PRIVATE_KEY
       ]
     }
   }

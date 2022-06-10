@@ -1,5 +1,9 @@
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { RobinhoodContext } from '../context/RobinhoodContext';
+
 // Types
-import type { NextPage } from "next";
+import { Coin }  from "../types/Coin";
 
 // Components
 import Header from "../components/Header";
@@ -32,13 +36,11 @@ const styles = {
   noticeMessage: "text-white font-bold",
   noticeCTA: "font-bold text-green-500 cursor-pointer mt-5",
   rightMain:
-    "flex flex-col bg-[#1E2123] mt-6 rounded-lg overflow-y-scroll noScroll h-3/5 lg:flex-1 xl:flex-1 2xl:flex-1 sm:h-fit",
+    "flex flex-col bg-[#1E2123] mt-6 rounded-lg overflow-y-scroll noScroll lg:flex-1 xl:flex-1 2xl:flex-1 h-fit",
   rightMainItem: "flex items-center text-white p-5 border-b border-[#30363b]",
   ItemTitle: "flex-1 font-bold",
   moreOptions: "cursor-pointer text-xl",
 };
-
-const tokens = ["ETH", "DOGE", "USDC", "DAI"];
 
 const bigChartLabels = [
   "Apr",
@@ -55,16 +57,20 @@ const bigChartLabels = [
 
 const bigChartData = [40, 45, 40, 50, 70, 72, 50, 50, 55, 70];
 
-const Home: NextPage = () => {
+const Home = ({coins}) => {
+
+  const [ myCoins ] = useState([...coins.slice(0,6)]);
+  const { balance } = useContext(RobinhoodContext);
+
   return (
     <div className={styles.wrapper}>
       <Header />
       <div className={styles.mainContainer}>
         <div className={styles.leftMain}>
           <div className={styles.portfolioAmountContainer}>
-            <div className={styles.portfolioAmount}>0 ETH</div>
+            <div className={styles.portfolioAmount}>{balance} ETH</div>
             <div className={styles.portfolioPercent}>
-              + 0.044 (+0.044%)
+              - 0.044 (+0.320%)
               <span className={styles.pastHour}> Past Hour</span>
             </div>
           </div>
@@ -75,7 +81,7 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.buyingPowerContainer}>
             <div className={styles.buyingPowerTitle}>Buying power</div>
-            <div className={styles.buyingPowerAmount}>12 ETH</div>
+            <div className={styles.buyingPowerAmount}>{balance} ETH</div>
           </div>
           <div className={styles.notice}>
             <div className={styles.noticeContainer}>
@@ -93,13 +99,16 @@ const Home: NextPage = () => {
             <div className={styles.ItemTitle}>Crypto Currencies</div>
             <BiDotsHorizontalRounded className={styles.moreOptions} />
           </div>
-          {tokens.map((token) => (
-            <Asset
-              key={token}
-              coin={{ symbol: token, change: 30 }}
-              price={30}
+          {myCoins.map(token => {
+            let price = parseFloat(token.price).toFixed(2);
+            return (
+              <Asset
+              key={token.uuid}
+              coin={token}
+              price={price}
             />
-          ))}
+            )
+          })}
 
           <div className={styles.rightMainItem}>
             <div className={styles.ItemTitle}>Lists</div>
@@ -113,3 +122,30 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getStaticProps = async () => {
+  const options = {
+    method: 'GET',
+    url: 'https://coinranking1.p.rapidapi.com/coins',
+    params: {
+      referenceCurrencyUuid: 'yhjMzLPhuIDl',
+      timePeriod: '24h',
+      tiers: '1',
+      orderBy: 'marketCap',
+      orderDirection: 'desc',
+      limit: '10',
+      offset: '0',
+    },
+    headers: {
+      'X-RapidAPI-Host': process.env.COIN_RANKING_HOST,
+      'X-RapidAPI-Key': process.env.COIN_RANKING_KEY,
+    },
+  }
+
+  const res = await axios.request(options);
+  const coins = res.data.data.coins;
+
+  return {
+    props: { coins },
+  }
+}

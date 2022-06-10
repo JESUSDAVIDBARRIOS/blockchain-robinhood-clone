@@ -5,16 +5,16 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { RobinhoodContext } from "../context/RobinhoodContext";
 
 const styles = {
-  container: "flex w-screen h-16 bg-black px-24 py-3 mb-5 fixed",
-  leftHeader: "flex flex-1",
+  container: "flex w-full h-16 bg-black px-16 py-3 mb-5 fixed",
+  leftHeader: "flex w-4/12 md:w-2/12",
   logo: "object-cover cursor-pointer",
-  searchWrapper: "flex flex-1",
+  searchWrapper: "flex w-8/12 md:w-4/12",
   searchInputContainer:
-    "text-white items-center flex  flex-1 -ml-64 border border-gray-400 mr-64 hover:bg-[#1E2123] duration-300 p-3 rounded-lg",
+    "text-white items-center flex w-full border border-gray-400 hover:bg-[#1E2123] duration-300 p-3 rounded-lg",
   searchIcon: "text-gray-400 text-3xl mr-3",
   searchInputWrapper: "text-gray-400 text-lg w-full",
   searchInput: "bg-transparent outline-none w-full",
-  rightHeader: "flex items-center justify-end text-white gap-8",
+  rightHeader: "items-center justify-end text-white gap-8 hidden md:flex w-5/12 text-sm lg:text-base",
   menuItem: "cursor-pointer font-bold hover:text-green-500 duration-300",
 };
 
@@ -50,7 +50,6 @@ const Header: FC = () => {
         <div className={styles.menuItem}>Rewards</div>
         <div className={styles.menuItem}>Portfolio</div>
         <div className={styles.menuItem}>Cash</div>
-        <div className={styles.menuItem}>Messages</div>
 
         {isAuthenticated && (
           <>

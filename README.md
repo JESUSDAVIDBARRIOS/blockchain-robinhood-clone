@@ -1,5 +1,7 @@
 # blockchain-robinhood-clone
 
+Project inspired by Clever Programmer
+
  Web3 Robinhood clone app
 
  - Run next.js app: `npm run dev`
